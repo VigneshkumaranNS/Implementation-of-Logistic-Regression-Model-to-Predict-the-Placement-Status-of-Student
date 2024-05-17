@@ -24,41 +24,45 @@ RegisterNumber: 212222230171
 
 ```
 import pandas as pd
-import numpy as np
-df=pd.read_csv('Placement_Data.csv')
+df = pd.read_csv("Placement_Data.csv")
 df.head()
-data1=df.copy()
-data1.head()
-data1=data1.drop(['sl_no','salary'],axis=1)
-data1.isnull().sum()
+df.isnull().sum()
+df1 = df.copy()
+df1.duplicated().sum()
 
 from sklearn.preprocessing import LabelEncoder
 le=LabelEncoder()
+df1["gender"]=le.fit_transform(df1["gender"])
+df1["ssc_b"]=le.fit_transform(df1["ssc_b"])
+df1["hsc_b"]=le.fit_transform(df1["hsc_b"])
+df1["hsc_s"]=le.fit_transform(df1["hsc_s"])
+df1["degree_t"]=le.fit_transform(df1["degree_t"])
+df1["workex"]=le.fit_transform(df1["workex"])
+df1["specialisation"]=le.fit_transform(df1["specialisation"])
+df1["status"]=le.fit_transform(df1["status"])
+df1
 
-x=data1.iloc[:, : -1]
-x
-y=data1["status"]
-y
+x = df1.iloc[:, : -1]
+y = df1["status"]
 
 from sklearn.model_selection import train_test_split
-x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=0)
+x_train, x_test ,y_train ,y_test = train_test_split(x, y, test_size = 0.2, random_state=34)
 
 from sklearn.linear_model import LogisticRegression
-classify=LogisticRegression(solver='liblinear')
-classify.fit(x_train,y_train)
-y_pred=classify.predict(x_test)
+model = LogisticRegression(solver = "liblinear")
+model.fit(x_train, y_train)
+y_pred = model.predict(x_test)
 
 from sklearn.metrics import accuracy_score,confusion_matrix,classification_report
-accuracy=accuracy_score(y_test,y_pred)
-confusion=confusion_matrix(y_test,y_pred)
-cr=classification_report(y_test,y_pred)
+accuracy = accuracy_score(y_test, y_pred)
+confusion = confusion_matrix(y_test, y_pred)
+cr = classification_report(y_test ,y_pred)
+
 print("Accuracy score:",accuracy)
 print("\nConfusion matrix:\n",confusion)
 print("\nClassification Report:\n",cr)
 
-classify.predict([[1,80,1,90,1,1,90,1,0,85,1,85]])
-
-```
+model.predict([[1,80,1,90,1,1,90,1,0,85,1,85]])```
 
 ## Output:
 # DATASET
