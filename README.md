@@ -22,7 +22,7 @@ RegisterNumber: 212222230171
 */
 ```
 
-```
+```python
 import pandas as pd
 df = pd.read_csv("Placement_Data.csv")
 df.head()
@@ -62,7 +62,9 @@ print("Accuracy score:",accuracy)
 print("\nConfusion matrix:\n",confusion)
 print("\nClassification Report:\n",cr)
 
-model.predict([[1,80,1,90,1,1,90,1,0,85,1,85]])```
+model.predict([[1,80,1,90,1,1,90,1,0,85,1,85]])
+```
+
 
 ## Output:
 # DATASET
